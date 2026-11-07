@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORSAKEN | Advanced Survival Manual</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #090b10;
+            --panel: #121722;
+            --panel2: #191f2c;
+            --red: #e63946;
+            --blue: #35a7ff;
+            --purple: #a855f7;
+            --green: #39d98a;
+            --text: #edf1f7;
+            --muted: #9ba6b7;
+            --border: #293344;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        header {
+            min-height: 440px;
+            padding: 100px 20px 85px;
+            text-align: center;
+            background:
+                linear-gradient(180deg, rgba(5, 8, 15, .45), #090b10),
+                radial-gradient(ellipse at center, #35121c 0%, #11121d 55%, #090b10 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            letter-spacing: 12px;
+            color: #fff;
+            text-shadow: 0 0 25px rgba(230, 57, 70, .65);
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--red);
+            letter-spacing: 4px;
+            font-size: clamp(1rem, 3vw, 1.6rem);
+            margin-top: 5px;
+        }
+
+        header p {
+            max-width: 650px;
+            margin: 25px auto;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 18px;
+            border: 1px solid var(--red);
+            border-radius: 30px;
+            color: #ff858c;
+            font-size: .75rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            background: rgba(12, 15, 23, .95);
+            border-bottom: 1px solid var(--border);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            backdrop-filter: blur(12px);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        nav a:hover {
+            color: var(--red);
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 75px 22px;
+        }
+
+        .section-heading {
+            margin-bottom: 35px;
+            border-left: 4px solid var(--red);
+            padding-left: 18px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            letter-spacing: 1px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .subheading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin: 40px 0 20px;
+            color: var(--blue);
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+            gap: 22px;
+        }
+
+        .character-card {
+            background: linear-gradient(145deg, var(--panel2), var(--panel));
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 24px;
+            transition: transform .25s, border-color .25s, box-shadow .25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--red);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .4);
+        }
+
+        .character-card.survivor {
+            border-top: 3px solid var(--blue);
+        }
+
+        .character-card.killer {
+            border-top: 3px solid var(--red);
+        }
+
+        .character-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .character-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .archetype {
+            color: var(--muted);
+            font-size: .75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .character-card p {
+            font-size: .9rem;
+            color: #c4cbd7;
+            margin: 10px 0;
+        }
+
+        .character-card strong {
+            color: #fff;
+        }
+
+        .ability {
+            background: rgba(0, 0, 0, .25);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: .85rem;
+        }
+
+        .ability span {
+            display: block;
+            color: var(--green);
+            font-size: .7rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .strategy-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 23px;
+        }
+
+        .strategy-card .number {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--red);
+            font-size: 1.7rem;
+            font-weight: 800;
+        }
+
+        .strategy-card h3 {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .strategy-card p {
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .map-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .map-banner {
+            height: 145px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .facility {
+            background: linear-gradient(135deg, #263b4d, #101722);
+        }
+
+        .woods {
+            background: linear-gradient(135deg, #16412e, #101b19);
+        }
+
+        .map-content {
+            padding: 23px;
+        }
+
+        .map-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .map-content p {
+            color: var(--muted);
+            font-size: .9rem;
+            margin-bottom: 12px;
+        }
+
+        .map-content strong {
+            color: #fff;
+        }
+
+        .warning {
+            background: linear-gradient(90deg, #31141b, #1c1118);
+            border: 1px solid #71303c;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 45px;
+        }
+
+        .warning h3 {
+            color: #ff6874;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 45px 20px;
+            text-align: center;
+            background: #07090d;
+        }
+
+        footer h2 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        footer .copyright {
+            margin-top: 25px;
+            font-size: .75rem;
+        }
+
+        @media(max-width:600px) {
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: .75rem;
+            }
+
+            .container {
+                padding: 50px 17px;
+            }
+
+            header {
+                min-height: 380px;
+                padding-top: 85px;
+            }
+
+            .logo {
+                letter-spacing: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="tag">ADVANCED SURVIVAL TACTICAL MANUAL</div>
+        <h1 class="logo">FORSAKEN</h1>
+        <h2>ADVANCED CHARACTERS & STRATEGIES</h2>
+        <p>
+            Master the art of survival. Outsmart the Killer.
+            Control the battlefield. Every second counts in
+            the realm of The Spectre.
+        </p>
+    </header>
+
+    <nav>
+        <a href="#characters">CHARACTERS</a>
+        <a href="#strategies">STRATEGIES</a>
+        <a href="#maps">MAP GUIDES</a>
+    </nav>
+
+    <!-- CHARACTERS -->
+
+    <section class="container" id="characters">
+
+        <div class="section-heading">
+            <h2>01 // CHARACTER DATABASE</h2>
+            <p>Detailed breakdowns of specialized Survivor and Killer archetypes.</p>
+        </div>
+
+        <h3 class="subheading">SURVIVOR ARCHETYPES</h3>
+
+        <div class="character-grid">
+
+            <article class="character-card survivor">
+                <div class="character-icon">🏃</div>
+                <div class="archetype">Survivor // Mobility</div>
+                <h3>The Swift Looper</h3>
+
+                <p><strong>Passive:</strong> Adrenaline Rush</p>
+                <p>Receives a speed burst after window vaults.</p>
+
+                <div class="ability">
+                    <span>ACTIVE ABILITY</span>
+                    <strong>Decoy Hologram</strong>
+                    Creates a temporary decoy to confuse the
+                    Killer's tracking.
+                </div>
+
+                <p><strong>Playstyle:</strong> High-aggression players
+                    deliberately draw chase aggro away from teammates
+                    working on objectives.</p>
+            </article>
+
+            <article class="character-card survivor">
+                <div class="character-icon">⚙️</div>
+                <div class="archetype">Survivor // Engineering</div>
+                <h3>The Master Technician</h3>
+
+                <p><strong>Passive:</strong> Silent Hands</p>
+                <p>Generators emit 50% less sound.</p>
+
+                <div class="ability">
+                    <span>ACTIVE ABILITY</span>
+                    <strong>Overdrive Repair</strong>
+                    Instantly boosts current puzzle completion.
+                </div>
+
+                <p><strong>Playstyle:</strong> Focuses on objective
+                    speed and stealthy avoidance of Killer terror radii.</p>
+            </article>
+
+        </div>
+
+        <h3 class="subheading">KILLER ARCHETYPES</h3>
+
+        <div class="character-grid">
+
+            <article class="character-card killer">
+                <div class="character-icon">👁️</div>
+                <div class="archetype">Killer // Stealth</div>
+                <h3>The Stalker</h3>
+
+                <p><strong>Passive:</strong> Shadow Meld</p>
+                <p>Heartbeat radius shrinks when crouching near walls.</p>
+
+                <div class="ability">
+                    <span>ACTIVE ABILITY</span>
+                    <strong>Ambush Dash</strong>
+                    A swift lunging strike that closes gaps instantly.
+                </div>
+
+                <p><strong>Playstyle:</strong> Relies on jump scares,
+                    blind corner angles, and isolating individual Survivors.</p>
+            </article>
+
+            <article class="character-card killer">
+                <div class="character-icon">💀</div>
+                <div class="archetype">Killer // Destruction</div>
+                <h3>The Juggernaut</h3>
+
+                <p><strong>Passive:</strong> Unstoppable Momentum</p>
+                <p>Immune to pallet stun slow effects.</p>
+
+                <div class="ability">
+                    <span>ACTIVE ABILITY</span>
+                    <strong>Barricade Smash</strong>
+                    Instantly demolishes dropped pallets and doors.
+                </div>
+
+                <p><strong>Playstyle:</strong> Breaks down map resources
+                    systematically, wearing down Survivor loops until
+                    nowhere is safe.</p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- STRATEGIES -->
+
+    <section class="container" id="strategies">
+
+        <div class="section-heading">
+            <h2>02 // ADVANCED STRATEGIES</h2>
+            <p>Pro tips and tactical techniques for surviving every encounter.</p>
+        </div>
+
+        <div class="strategy-grid">
+
+            <article class="strategy-card">
+                <div class="number">01</div>
+                <h3>Looping Fundamentals</h3>
+                <p>
+                    Never run in straight lines across open areas.
+                    Hug walls tightly during window vaults to
+                    minimize travel distance and force the Killer
+                    to take wider turns.
+                </p>
+            </article>
+
+            <article class="strategy-card">
+                <div class="number">02</div>
+                <h3>Managing Scratch Marks</h3>
+                <p>
+                    Sprinting leaves glowing trails visible to
+                    Killers for several seconds. Stop sprinting
+                    and crouch-walk behind obstacles to confuse
+                    your tracker.
+                </p>
+            </article>
+
+            <article class="strategy-card">
+                <div class="number">03</div>
+                <h3>Pallet Mindgames</h3>
+                <p>
+                    Do not pre-drop every pallet immediately.
+                    Stand near pallets to bait the Killer into
+                    swinging early, then drop it for a clean stun
+                    and distance gain.
+                </p>
+            </article>
+
+            <article class="strategy-card">
+                <div class="number">04</div>
+                <h3>Stamina & Ability Timing</h3>
+                <p>
+                    Keep track of cooldown timers. Triggering
+                    escape abilities prematurely leaves you
+                    vulnerable during endgame gate rushes.
+                </p>
+            </article>
+
+        </div>
+
+        <div class="warning">
+            <h3>⚠ TACTICAL REMINDER</h3>
+            <p>
+                Every ability has a purpose. Every pallet is a
+                resource. Every second matters. Think ahead,
+                manage your cooldowns, and never waste an
+                opportunity to create distance.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- MAPS -->
+
+    <section class="container" id="maps">
+
+        <div class="section-heading">
+            <h2>03 // MAP INTELLIGENCE</h2>
+            <p>Learn the terrain and use environmental advantages to survive.</p>
+        </div>
+
+        <div class="map-grid">
+
+            <article class="map-card">
+                <div class="map-banner facility">
+                    🏭 THE ABANDONED FACILITY
+                </div>
+
+                <div class="map-content">
+                    <h3>The Abandoned Facility</h3>
+
+                    <p>
+                        <strong>Hazards:</strong> Tight indoor corridors,
+                        stairwells, and echo reverb.
+                    </p>
+
+                    <p>
+                        <strong>Optimal Strategy:</strong> Use
+                        multi-level drop-downs to break line of sight.
+                        Listen for audio echoes to track Killer
+                        verticality.
+                    </p>
+                </div>
+            </article>
+
+            <article class="map-card">
+                <div class="map-banner woods">
+                    🌲 THE WHISPERING WOODS
+                </div>
+
+                <div class="map-content">
+                    <h3>The Whispering Woods</h3>
+
+                    <p>
+                        <strong>Hazards:</strong> Low visibility fog,
+                        scattered cabins, and open clearing fields.
+                    </p>
+
+                    <p>
+                        <strong>Optimal Strategy:</strong> Stick close
+                        to tree clusters when traversing. Cabin windows
+                        provide potentially powerful loop opportunities
+                        when timed correctly.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+        <h2>FORSAKEN</h2>
+        <p>Survive the hunt. Master the darkness.</p>
+        <p>Advanced Characters & Strategies Manual</p>
+
+        <p class="copyright">
+            Practice these techniques in custom matches or
+            explore community spin-offs like Forsaken Combat.
+            <br><br>
+            Unofficial fan-made strategy guide.
+        </p>
+    </footer>
+
+</body>
+
+</html>
